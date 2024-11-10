@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -11,7 +12,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('categories.index', ['title' => 'Categories']);
+        $categories = Category::all();
+
+        return view('categories.index', ['title' => 'Categories', 'categories' => $categories]);
     }
 
     /**
@@ -19,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create', ['title' => 'Add Category']);
     }
 
     /**
@@ -27,7 +30,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category([
+            'name' => $request->get('name'),
+            'color' => $request->get('color'),
+        ]);
+
+        $category->save();
+
+        return redirect('/categories')->with('success', 'Category created!');
     }
 
     /**
@@ -35,7 +45,9 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $category = Category::find($id);
+
+        return view('categories.show', ['title' => 'Detail Category', 'category' => $category]);
     }
 
     /**
@@ -43,22 +55,31 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::find($id);
+
+        return view('categories.edit', ['title' => 'Edit Category', 'category' => $category]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $category->name = $request->get('name');
+        $category->color = $request->get('color');
+
+        $category->save();
+
+        return redirect('/categories')->with('success', 'Category updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect('/categories')->with('info', 'Category deleted!');
     }
 }

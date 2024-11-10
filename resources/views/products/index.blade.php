@@ -33,13 +33,13 @@
                         Product name
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Status
-                    </th>
-                    <th scope="col" class="px-6 py-3">
                         Category
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Price
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Status
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <span class="sr-only">Action</span>
@@ -65,23 +65,26 @@
                             {{ $product->name }}
                         </td>
                         <td class="px-6 py-4">
-                            @if ($product->status == 1)
-                                <span
-                                    class="bg-green-100 text-green-400 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-                                    Published
-                                </span>
-                            @else
-                                <span
-                                    class="bg-yellow-100 text-yellow-400 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300">
-                                    Draft
-                                </span>
-                            @endif
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ $product->category }}
+                            <span
+                                class="bg-{{ $product->category->color }}-100 text-{{ $product->category->color }}-400 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-{{ $product->category->color }}-900 dark:text-{{ $product->category->color }}-300">
+                                {{ $product->category->name }}
+                            </span>
                         </td>
                         <td class="px-6 py-4">
                             ${{ $product->price }}
+                        </td>
+                        <td class="px-6 py-4">
+                            @if ($product->status == 1)
+                                <div class="flex flex-row items-center gap-1">
+                                    <div class="h-2 w-2 rounded-full bg-green-400"></div>
+                                    <span class="text-sm">Published</span>
+                                </div>
+                            @else
+                            <div class="flex flex-row items-center gap-1">
+                                <div class="h-2 w-2 rounded-full bg-yellow-400"></div>
+                                <span class="text-sm">Draft</span>
+                            </div>
+                            @endif
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex flex-row gap-4 justify-end">

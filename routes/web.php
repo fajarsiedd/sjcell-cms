@@ -13,4 +13,4 @@ Route::get('/', [AdminController::class, 'index']);
 
 Route::resource('products', ProductController::class);
 
-Route::resource('categories', ProductController::class);
+Route::resource('categories', CategoryController::class);

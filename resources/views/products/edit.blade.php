@@ -63,10 +63,9 @@
                     <x-input-label for="category">Product Category</x-input-label>
                     <select id="category" name="category"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500 transition ease-in-out duration-150">
-                        <option value="Iphone" {{ $product->category == 'Iphone' ? 'selected' : '' }}>Iphone</option>
-                        <option value="Android" {{ $product->category == 'Android' ? 'selected' : '' }}>Android</option>
-                        <option value="PC" {{ $product->category == 'PC' ? 'selected' : '' }}>PC</option>
-                        <option value="Tablet" {{ $product->category == 'Tablet' ? 'selected' : '' }}>Tablet</option>
+                        @foreach ($categories as $category)                            
+                            <option value="{{ $category->id }}" {{ $category->id == $product->category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="mb-5">

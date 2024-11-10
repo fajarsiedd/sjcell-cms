@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -17,9 +18,9 @@ class ProductController extends Controller
         $search = $request->input('search');
 
         if ($search) {
-            $products = Product::where('id', $search)->get();
+            $products = Product::with('category')->where('id', $search)->get();
         } else {
-            $products = Product::all();
+            $products = Product::with('category')->latest()->get();
         }
 
 
@@ -31,7 +32,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create', ['title' => 'Add Product']);
+        $categories = Category::all();
+
+        return view('products.create', ['title' => 'Add Product', 'categories' => $categories]);
     }
 
     /**
@@ -46,7 +49,7 @@ class ProductController extends Controller
         $product = new Product([
             'name' => $request->get('name'),
             'description' => $request->get('description'),
-            'category' => $request->get('category'),
+            'category_id' => $request->get('category'),
             'price' => $request->get('price'),
             'status' => $request->has('status'),
         ]);
@@ -65,7 +68,7 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        $product = Product::find($id);
+        $product = Product::with('category')->find($id);
 
         return view('products.show', ['title' => 'Detail Product', 'product' => $product]);
     }
@@ -75,9 +78,10 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        $product = Product::find($id);
+        $product = Product::with('category')->find($id);
+        $categories = Category::all();
 
-        return view('products.edit', ['title' => 'Edit Product', 'product' => $product]);
+        return view('products.edit', ['title' => 'Edit Product', 'product' => $product, 'categories' => $categories]);
     }
 
     /**
@@ -96,7 +100,7 @@ class ProductController extends Controller
 
         $product->name = $request->get('name');
         $product->description = $request->get('description');
-        $product->category = $request->get('category');
+        $product->category_id = $request->get('category');
         $product->price = $request->get('price');
         $product->status = $request->has('status');
 
@@ -112,6 +116,6 @@ class ProductController extends Controller
     {
         $product->delete();
 
-        return redirect('/products')->with('success', 'Product deleted!');
+        return redirect('/products')->with('info', 'Product deleted!');
     }
 }
