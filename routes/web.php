@@ -1,15 +1,16 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/', function () {
-    return view('dashboard', ['title' => 'Dashboard']);
-});
+Route::get('/', [AdminController::class, 'index']);
 
-Route::get('/products', function () {
-    return view('products.index', ['title' => 'Products']);
-});
+Route::resource('products', ProductController::class);
+
+Route::resource('categories', ProductController::class);

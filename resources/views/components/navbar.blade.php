@@ -14,9 +14,7 @@
                     </svg>
                 </button>
                 <a href="#" class="flex ms-2 md:me-24">
-                    <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
-                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">SJ
-                        Cell</span>
+                    <img src="/img/superjay-logo.png" class="h-8 me-3" alt="Superjay Logo" />                    
                 </a>
             </div>
             <div class="flex items-center">
