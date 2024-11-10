@@ -15,16 +15,16 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
+        $search = $request->input('search');        
 
         if ($search) {
-            $products = Product::with('category')->where('id', $search)->get();
+            $products = Product::with('category')->where('id', $search)->get();            
         } else {
             $products = Product::with('category')->latest()->get();
         }
 
 
-        return view('products.index', ['title' => 'Products', 'products' => $products]);
+        return view('products.index', ['title' => 'Products', 'products' => $products, 'search' => $search]);
     }
 
     /**

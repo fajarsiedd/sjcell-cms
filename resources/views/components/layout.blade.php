@@ -18,10 +18,8 @@
     <main>
         <div class="p-4 sm:ml-64 mt-14">
             @include('flash-messages')
-            
-            <div class="p-6 bg-white border border-gray-200 rounded-lg">
-                {{ $slot }}
-            </div>
+        
+            {{ $slot }}
         </div>
     </main>
 </body>
