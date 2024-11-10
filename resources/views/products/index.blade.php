@@ -109,7 +109,7 @@
                                     </svg>
                                 </a>
                                 <form action="{{ route('products.destroy', $product) }}" method="POST"
-                                    onsubmit="confirm('Product will be deleted permanently, are you sure?')">
+                                    onsubmit="return confirm('Product will be deleted permanently, are you sure?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger"><svg
